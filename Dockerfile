@@ -3,7 +3,7 @@ FROM python:3.8.10
 
 RUN mkdir -p /opt/data \
     && wget https://github.com/ethersphere/bee/releases/download/v0.6.2/bee-linux-amd64 -O /usr/bin/bee \
-    && chmod 755 /usr/bin/bee
+    && chmod 755 /usr/bin/bee \
     && pip3 install websockets requests;
 
 ADD py /opt/py
