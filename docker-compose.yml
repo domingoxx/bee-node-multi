@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  bee:
+    environment:
+      - BEE_ADMIN_BASE_API=http://192.168.0.100:8080/jeecg-bee
+      - BEE_MACHINE_GROUP=SG
+      - BEE_API_SECURE_KEY=123
+    image: "kkwang/bee-node-multi:bee-0.6.2"
+    volumes:
+      - "./data/bee:/opt/data"
+      - "/ect/hostname:/opt/hostname"
+    deploy:
+      restart_policy:
+        condition: any
+      mode: replicated
+      replicas: 1
