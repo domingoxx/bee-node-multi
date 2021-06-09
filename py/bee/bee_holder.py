@@ -21,15 +21,22 @@ class BeeHolder(threading.Thread):
     self.password = password
     self.append_args = append_args
     self.bee_process = None
+    self.running = False
+
+  def start(self) -> None:
+    self.running = True
+    return super().start()
 
   def run(self):
     # self.bee_process = 1
     # time.sleep(600)
     # self.bee_process = None
     self.startBee()
+    self.running = False
 
   def isRunning(self):
-    return self.bee_process != None and self.bee_process.returncode == None
+    return self.running
+    # return self.bee_process != None and self.bee_process.returncode == None
     # return self.bee_process != None
 
   def shutdown(self):

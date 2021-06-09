@@ -41,17 +41,17 @@ async def reconnect_if_needed(ws: WebSocketClientProtocol, bee: BeeHolder, url: 
   # 开始重连
   while bee.isRunning():
     try:
-      print('重连中...')
+      print('重连中...', flush=True)
       connection = await websockets.connect(url)
       success = await perform_handshake(connection)
       if success:
-        print('重连成功')
+        print('重连成功', flush=True)
         return connection, True
       else:
         await connection.close()
-        print('重连失败！')
+        print('重连失败！', flush=True)
     except BaseException as err:
-      print('重连失败～',err)
+      print('重连失败～',err, flush=True)
     await asyncio.sleep(10)
   return None, False
 
@@ -69,7 +69,7 @@ async def start_ping_task(ws: WebSocketClientProtocol):
 
 async def handle_http_call_message(ws: WebSocketClientProtocol, message: WSMessage):
   data = message.dictData()
-  print('handle http call', data)
+  print('handle http call', data, flush=True)
   message_response = {'key': data['key']}
   try:
     response = requests.request(
@@ -84,7 +84,7 @@ async def handle_http_call_message(ws: WebSocketClientProtocol, message: WSMessa
     script = data['eval']
     
     if script != None:
-      print(json_data)
+      print(json_data, flush=True)
       json_data = eval(script, {'res': json_data})
     message_response['success'] = True
     message_response['result'] = json_data
