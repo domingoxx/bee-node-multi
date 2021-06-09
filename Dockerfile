@@ -2,6 +2,8 @@
 FROM python:3.8.10
 
 RUN mkdir -p /opt/data \
+    && apt-get update \
+    && apt-get install dnsutils \
     && wget https://github.com/ethersphere/bee/releases/download/v0.6.2/bee-linux-amd64 -O /usr/bin/bee \
     && chmod 755 /usr/bin/bee \
     && pip3 install websockets requests;
@@ -13,4 +15,4 @@ VOLUME /opt/data
 
 EXPOSE 1633 1634 1635
 
-ENTRYPOINT ["python3","-m","py.start"]
+CMD ["python3","-m","py.start"]
