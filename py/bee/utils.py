@@ -13,7 +13,7 @@ def get_bee_version():
   version_data = os.getenv("BEE_VERSION")
   if version_data == None:
     version_data = subprocess.check_output('bee  version', shell=True)
-    version = version_data.split("-")[0].split(".")
+    version = str(version_data, encoding='utf-8').split("-")[0].split(".")
   else:
     version = version_data.split(".")
   try:
