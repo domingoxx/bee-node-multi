@@ -3,6 +3,7 @@ import json
 import requests
 from websockets import WebSocketClientProtocol
 import websockets
+from websockets.exceptions import ConnectionClosed
 from py.message.ws_protocol import WSMessage, WSCommand
 from py.bee.bee_holder import BeeHolder
 
@@ -50,8 +51,13 @@ async def reconnect_if_needed(ws: WebSocketClientProtocol, bee: BeeHolder, url: 
       else:
         await connection.close()
         print('重连失败！', flush=True)
+    except ConnectionClosed as cc:
+      # 被服务器主动断开
+      if cc.code == 1003:
+        return None, False
     except BaseException as err:
       print('重连失败～',err, flush=True)
+    
     await asyncio.sleep(10)
   return None, False
 

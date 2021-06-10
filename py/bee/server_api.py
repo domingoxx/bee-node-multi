@@ -23,7 +23,7 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
     'beeVersion': bee_version,
     'secureKey': secure_key,
   }
-  response = requests.get(url=f"{admin_api_url}/api/bee/node/bind",json=data)
+  response = requests.post(url=f"{admin_api_url}/api/bee/node/bind",json=data)
   json_data = response.json()
   
   success = json_data.get("success")
@@ -38,9 +38,9 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
   ws_url = result['wsUrl']
   boot_config_url = result['bootConfigUrl']
 
-  data_path = data_path_by_index(config_path_index)
-
-  extract_deploy_zip_file(deploy_zip_file_url, data_path)
+  if deploy_zip_file_url != '':
+    data_path = data_path_by_index(config_path_index)
+    extract_deploy_zip_file(deploy_zip_file_url, data_path)
 
   config = {
     'node_id': node_id,

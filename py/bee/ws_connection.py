@@ -34,12 +34,12 @@ async def connect(bee: BeeHolder, ws_url: str):
         await handle_message_receive(connection, message)
     except ConnectionClosed as err:
       # err.reason
-      print(f'closed by forgein code={err.code}, reason={err.reason}')
+      print(f'closed by forgein code={err.code}, reason={err.reason}', flush=True)
       if err.code == 1003:
         # nodeId 或者 localSerialNumber 错误
         break
 
-  print('exit')
+  print('exit', flush=True)
   if bee is not None and bee.isRunning():
     bee.shutdown()
   if connection != None and not connection.closed:
