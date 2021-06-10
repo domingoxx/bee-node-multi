@@ -34,8 +34,8 @@ def get_config_path_index():
     return int(envVar)
   container_name = subprocess.check_output('dig -x "$(hostname -i)" +short | cut -f1 -d .', shell=True)
 
-  config_path_index = str(container_name[-2:-1], encoding='utf-8')
-  config_path_index = int(config_path_index)
+  config_path_index = str(container_name[:-1], encoding='utf-8')
+  config_path_index = int(config_path_index.split("_")[-1:][0])
   if config_path_index >= 100 or config_path_index <= 0:
     raise ValueError('config_path_index value must be 1 ~ 99')
 

@@ -2,7 +2,7 @@ version: "3.9"
 services:
   bee:
     environment:
-      - BEE_ADMIN_BASE_API=http://192.168.0.100:8080/jeecg-bee
+      - BEE_ADMIN_BASE_API=http://47.242.89.189:5000
       - BEE_MACHINE_GROUP=SG
       - BEE_API_SECURE_KEY=123
     image: "kkwang/bee-node-multi:0.6.2"
