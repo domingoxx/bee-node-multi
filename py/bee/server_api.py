@@ -36,7 +36,6 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
   password = result['password']
   append_args = result['appendArgs']
   ws_url = result['wsUrl']
-  boot_config_url = result['bootConfigUrl']
 
   if deploy_zip_file_url != '':
     data_path = data_path_by_index(config_path_index)
@@ -45,7 +44,6 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
   config = {
     'node_id': node_id,
     'local_serial_number': local_serial_number,
-    'boot_config_url': boot_config_url,
 
     'append_args': append_args,
     'password': password,
@@ -55,7 +53,6 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
   save_local_config(config_path_index, {
     'node_id': node_id,
     'local_serial_number': local_serial_number,
-    'boot_config_url': boot_config_url,
   })
 
   return config
@@ -85,7 +82,7 @@ def extract_deploy_zip_file( url, data_path):
 
 
 def request_boot_config(local_config, machine_group, machine_name, bee_version):
-  url = local_config['boot_config_url']
+  
   params = {
     'nodeId': local_config['node_id'],
     'localSerialNumber': local_config['local_serial_number'],
@@ -93,7 +90,7 @@ def request_boot_config(local_config, machine_group, machine_name, bee_version):
      'machineName': machine_name, 
      'beeVersion': bee_version
   }
-  response = requests.get(url=url, params=params)
+  response = requests.get(url=f"{admin_api_url}/api/bee/node/boot/config", params=params)
   json_data = response.json()
   success = json_data.get("success")
   if success == None or not success:
