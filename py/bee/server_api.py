@@ -32,7 +32,7 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
   result = json_data['result']
   print(result)
   node_id = result['nodeId']
-  deploy_zip_file_url = result['deployZipFileUrl']
+  deploy_zip_file_url = result.get('deployZipFileUrl')
   password = result['password']
   append_args = result['appendArgs']
   ws_url = result['wsUrl']
