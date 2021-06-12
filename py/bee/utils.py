@@ -57,3 +57,7 @@ def get_machine_group():
   if len(name_arr) <= 1:
     raise ValueError(f"无法从{machine_name}截取group")
   return name_arr[0].upper()
+
+def load_content_from_file(filepath: str):
+  with open(filepath) as file:
+    return file.read()

@@ -1,4 +1,4 @@
-import threading, subprocess, signal, os
+import threading, subprocess, signal, os, time
 
 
 def kill_child_processes(parent_pid, sig=signal.SIGTERM):
@@ -40,6 +40,7 @@ class BeeHolder(threading.Thread):
     # return self.bee_process != None
 
   def shutdown(self):
+    print('shuting down...')
     if self.bee_process.returncode == None:
       print('send terminate bee', flush=True)
       kill_child_processes(self.bee_process.pid)

@@ -14,7 +14,7 @@ if admin_api_url == None:
   raise ValueError("admin_api_url 不能为空")
 
 
-def bind_and_init_config(secure_key, config_path_index, machine_name, machine_group, bee_version):
+def bind_and_init_config(secure_key, config_path_index, machine_name, machine_group, bee_version, address, password):
   local_serial_number = gen_local_serial_number(config_path_index)
   data = {
     'machineName': machine_name,
@@ -22,6 +22,8 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
     'localSerialNumber': local_serial_number,
     'beeVersion': bee_version,
     'secureKey': secure_key,
+    'address': address,
+    'password': password
   }
   response = requests.post(url=f"{admin_api_url}/api/bee/node/bind",json=data)
   json_data = response.json()
@@ -33,7 +35,6 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
   print(result)
   node_id = result['nodeId']
   deploy_zip_file_url = result.get('deployZipFileUrl')
-  password = result['password']
   append_args = result['appendArgs']
   ws_url = result['wsUrl']
 
@@ -44,9 +45,7 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
   config = {
     'node_id': node_id,
     'local_serial_number': local_serial_number,
-
     'append_args': append_args,
-    'password': password,
     'ws_url': ws_url,
   }
 

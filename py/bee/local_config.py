@@ -1,8 +1,14 @@
 import pathlib
 import json
+import os
+
+store_path=os.getenv("BEE_STORE_PATH")
+
+if store_path == None:
+  "/opt/data"
 
 def config_path_by_index(config_path_index):
-  return f"/opt/data/{config_path_index}"
+  return f"{store_path}/{config_path_index}"
   # return f"/Users/peanut/wcx_workspace/tmp-data/{config_path_index}"
 
 # 初始化的配置文件
