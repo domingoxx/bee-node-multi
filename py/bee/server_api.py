@@ -37,7 +37,7 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
   append_args = result['appendArgs']
   ws_url = result['wsUrl']
 
-  if deploy_zip_file_url != '':
+  if deploy_zip_file_url == None or deploy_zip_file_url != '':
     data_path = data_path_by_index(config_path_index)
     extract_deploy_zip_file(deploy_zip_file_url, data_path)
 
