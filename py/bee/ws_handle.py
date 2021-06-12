@@ -81,9 +81,9 @@ async def handle_http_call_message(ws: WebSocketClientProtocol, message: WSMessa
     response = requests.request(
       method=data['method'],
       url=data['url'],
-      params=data['params'],
-      headers=data['headers'],
-      json=data['json']
+      params=data.get('params'),
+      headers=data('headers'),
+      json=data.get('json')
       )
 
     json_data = response.json()
