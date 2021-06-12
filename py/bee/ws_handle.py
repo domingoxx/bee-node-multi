@@ -87,7 +87,7 @@ async def handle_http_call_message(ws: WebSocketClientProtocol, message: WSMessa
       )
 
     json_data = response.json()
-    script = data['eval']
+    script = data.get('eval')
     
     if script != None:
       print(json_data, flush=True)
