@@ -5,7 +5,7 @@ import os
 store_path=os.getenv("BEE_STORE_PATH")
 
 if store_path == None:
-  "/opt/data"
+  store_path = "/opt/data"
 
 def config_path_by_index(config_path_index):
   return f"{store_path}/{config_path_index}"
