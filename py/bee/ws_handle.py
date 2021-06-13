@@ -6,6 +6,7 @@ import websockets
 from websockets.exceptions import ConnectionClosed
 from py.message.ws_protocol import WSMessage, WSCommand
 from py.bee.bee_holder import BeeHolder
+import logging
 
 async def receive_message(ws: WebSocketClientProtocol):
   message =  await ws.recv()
@@ -97,6 +98,7 @@ async def handle_http_call_message(ws: WebSocketClientProtocol, message: WSMessa
   except BaseException as err:
     message_response['success'] = False
     message_response['result'] = str(err)
+    logging.exception(err)
   
   await send_message(ws, WSMessage(WSCommand.http_return, message_response))
 
