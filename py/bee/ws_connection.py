@@ -10,7 +10,7 @@ from py.bee.ws_handle import reconnect_if_needed, perform_handshake, start_ping_
 
 
 async def connect(bee: BeeHolder, ws_url: str):
-  connection = await websockets.connect(ws_url)
+  connection = await websockets.connect(ws_url, timeout=60)
   
   await perform_handshake(connection)
 

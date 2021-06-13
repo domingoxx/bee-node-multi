@@ -25,7 +25,7 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
     'address': address,
     'password': password
   }
-  response = requests.post(url=f"{admin_api_url}/api/bee/node/bind",json=data)
+  response = requests.post(url=f"{admin_api_url}/api/bee/node/bind",json=data, timeout=60)
   json_data = response.json()
   
   success = json_data.get("success")
@@ -89,7 +89,7 @@ def request_boot_config(local_config, machine_group, machine_name, bee_version):
      'machineName': machine_name, 
      'beeVersion': bee_version
   }
-  response = requests.get(url=f"{admin_api_url}/api/bee/node/boot/config", params=params)
+  response = requests.get(url=f"{admin_api_url}/api/bee/node/boot/config", params=params, timeout=60)
   json_data = response.json()
   success = json_data.get("success")
   if success == None or not success:

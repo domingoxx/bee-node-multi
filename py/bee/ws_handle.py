@@ -44,7 +44,7 @@ async def reconnect_if_needed(ws: WebSocketClientProtocol, bee: BeeHolder, url: 
   while bee.isRunning():
     try:
       print('重连中...', flush=True)
-      connection = await websockets.connect(url)
+      connection = await websockets.connect(url, timeout=60)
       success = await perform_handshake(connection)
       if success:
         print('重连成功', flush=True)
@@ -83,8 +83,9 @@ async def handle_http_call_message(ws: WebSocketClientProtocol, message: WSMessa
       method=data['method'],
       url=data['url'],
       params=data.get('params'),
-      headers=data('headers'),
-      json=data.get('json')
+      headers=data.get('headers'),
+      json=data.get('json'),
+      timeout=60
       )
 
     json_data = response.json()

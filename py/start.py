@@ -46,3 +46,4 @@ print(ws_url)
 
 asyncio.get_event_loop().run_until_complete(connect(bee, ws_url))
 
+bee.shutdown()
