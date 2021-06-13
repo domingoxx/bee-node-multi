@@ -88,14 +88,15 @@ async def handle_http_call_message(ws: WebSocketClientProtocol, message: WSMessa
       timeout=60
       )
 
-    json_data = response.json()
+    json_text = response.text
     script = data.get('eval')
     
     if script != None:
-      print(json_data, flush=True)
-      json_data = eval(script, {'res': json_data})
+      json_data = json.loads(json_text)
+      json_data = eval(script, {'data': json_data, 'response': response})
+      json_text = json.dumps(json_data)
     message_response['success'] = True
-    message_response['result'] = json_data
+    message_response['result'] = json_text
   except BaseException as err:
     message_response['success'] = False
     message_response['result'] = str(err)
