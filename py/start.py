@@ -1,7 +1,7 @@
 from py.bee.ws_connection import connect
 from py.bee.bee_holder import BeeHolder
 from py.bee.server_api import bind_and_init_config, request_boot_config
-from py.bee.local_config import data_path_by_index, load_local_config
+from py.bee.local_config import data_path_by_index, drop_local_config, load_local_config
 from py.bee.utils import get_bee_version, get_config_path_index, get_machine_group, get_machine_name, get_api_secure_key, load_content_from_file
 from py.utils.register_exit import register_exit_fun
 import asyncio
@@ -26,9 +26,15 @@ print(machine_group, machine_name, config_path_index, bee_version)
 local_config = load_local_config(config_path_index)
 
 if local_config == None:
-  config = bind_and_init_config(secure_key, config_path_index, machine_name, machine_group, bee_version, address,password)
+  config = bind_and_init_config(secure_key, config_path_index, machine_name, machine_group, bee_version, address)
 else:
   config = request_boot_config(local_config, machine_group, machine_name, bee_version)
+  if config == None:
+    # 无法获取配置，清理本地配置，重新初始化
+    print('无法获取配置，即将清理本地配置，退出程序。')
+    drop_local_config(config_path_index)
+    exit()
+
 
 config['password'] = password
 config['secure_key'] = secure_key

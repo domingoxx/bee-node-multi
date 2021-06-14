@@ -14,7 +14,7 @@ if admin_api_url == None:
   raise ValueError("admin_api_url 不能为空")
 
 
-def bind_and_init_config(secure_key, config_path_index, machine_name, machine_group, bee_version, address, password):
+def bind_and_init_config(secure_key, config_path_index, machine_name, machine_group, bee_version, address):
   local_serial_number = gen_local_serial_number(config_path_index)
   data = {
     'machineName': machine_name,
@@ -22,8 +22,7 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
     'localSerialNumber': local_serial_number,
     'beeVersion': bee_version,
     'secureKey': secure_key,
-    'address': address,
-    'password': password
+    'address': address
   }
   response = requests.post(url=f"{admin_api_url}/api/bee/node/bind",json=data, timeout=60)
   print(response.text)
@@ -94,6 +93,9 @@ def request_boot_config(local_config, machine_group, machine_name, bee_version):
   json_data = response.json()
   success = json_data.get("success")
   if success == None or not success:
+    code = json_data.get('code')
+    if code == 404:
+      return None
     raise ValueError(f"请求失败, result={json_data}")
   result = json_data['result']
   

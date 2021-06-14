@@ -42,3 +42,7 @@ def load_local_config(config_path_index):
     content = f.read()
     config =json.loads(content)
   return config
+
+def drop_local_config(config_path_index):
+  config_file = config_file_by_index(config_path_index)
+  os.remove(config_file)
