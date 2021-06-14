@@ -26,6 +26,7 @@ def bind_and_init_config(secure_key, config_path_index, machine_name, machine_gr
     'password': password
   }
   response = requests.post(url=f"{admin_api_url}/api/bee/node/bind",json=data, timeout=60)
+  print(response.text)
   json_data = response.json()
   
   success = json_data.get("success")
