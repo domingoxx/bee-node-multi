@@ -100,7 +100,6 @@ def request_boot_config(local_config, machine_group, machine_name, bee_version):
   result = json_data['result']
   
   local_config['append_args'] = result['appendArgs']
-  local_config['password'] = result['password']
   local_config['ws_url'] = result['wsUrl']
 
   return local_config
