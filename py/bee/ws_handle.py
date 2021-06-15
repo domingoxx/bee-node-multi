@@ -90,7 +90,7 @@ async def handle_http_call_message(ws: WebSocketClientProtocol, message: WSMessa
 
     json_text = response.text
     script = data.get('eval')
-    
+    print(json_text)
     if script != None:
       json_data = json.loads(json_text)
       json_data = eval(script, {'data': json_data, 'response': response, 'request': data})
