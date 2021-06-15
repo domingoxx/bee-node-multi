@@ -5,7 +5,7 @@ services:
       - BEE_ADMIN_BASE_API=http://192.168.0.136:8080
       - BEE_MACHINE_GROUP=SG
       - BEE_API_SECURE_KEY=123
-    image: "kkwang/bee-node-multi:0.6.2"
+    image: "kkwang/bee-node-multi:0.6.2-3"
     volumes:
       - "./data/bee:/opt/data"
       - "/etc/hostname:/opt/hostname"
