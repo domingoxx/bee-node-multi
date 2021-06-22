@@ -60,4 +60,4 @@ def get_machine_group():
 
 def load_content_from_file(filepath: str):
   with open(filepath) as file:
-    return file.read()
+    return file.read().replace("\n","")
